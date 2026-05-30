@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Desire: IQ & Personality Quest</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef2f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .story-card {
+            max-width: 650px;
+            width: 95%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+        .choice-btn {
+            font-size: 1.1rem;
+            margin: 12px 0;
+            padding: 14px;
+            border-radius: 8px;
+            text-align: left;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        .choice-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .fade-in {
+            animation: fadeInAnimation 0.5s forwards;
+        }
+        @keyframes fadeInAnimation {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .avatar-box {
+            font-size: 4.5rem;
+        }
+        .progress-bar-container {
+            background-color: #ddd;
+            border-radius: 10px;
+            height: 8px;
+            width: 100%;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #2196F3;
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+
+<div class="w3-card-4 w3-white story-card fade-in" id="game-container">
+    <header class="w3-container w3-flat-midnight-blue w3-center w3-padding-16">
+        <h2 class="w3-wide"><b>बुद्धिमता र चाहना (IQ Quest)</b></h2>
+        <span class="w3-opacity">१० तहको चुनौतीपूर्ण निर्णय यात्रा</span>
+    </header>
+
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="myBar" style="width: 0%"></div>
+    </div>
+
+    <div class="w3-container w3-padding-32 w3-center" id="story-content">
+        </div>
+
+    <footer class="w3-container w3-light-grey w3-center w3-padding-8 w3-small w3-text-grey">
+        GitHub Edition © 2026 | Developed by Pro Trader & Coder
+    </footer>
+</div>
+
+<script>
+    // १० वटा लेभल र विभिन्न हाँगाहरू भएको विस्तृत डेटा ट्री
+    const storyTree = {
+        start: {
+            step: 10,
+            avatar: "👦",
+            text: "प्रश्न १: एउटा टाठो केटा छ। उसको जीवनको उद्देश्य जहिले पनि 'सर्वश्रेष्ठ' मात्र रोज्ने हो। विवाहको चर्चा सुरु हुँदा, उसलाई दुईवटा प्रस्ताव आउँछन्। उसले कुन रोज्ला?",
+            choices: [
+                { text: "🌟 रूप र धनमा शीर्ष (Top Quality Exterior)", next: "q2_ramro" },
+                { text: "🛑 विचार र सादगीमा शीर्ष (High Intellectual Interior)", next: "q2_sadagi" }
+            ]
+        },
+        // बाटो क: राम्रो रोज्दा
+        q2_ramro: {
+            step: 20,
+            avatar: "👸",
+            text: "प्रश्न २: केटी अत्यन्तै सुन्दरी र धनी त थिई, तर पहिलो भेटमै उसले केटाको परिवारको सामान्य स्थितिको मजाक उडाई। केटाको प्रतिक्रिया के हुन्छ?",
+            choices: [
+                { text: "🌟 प्रेम र चेतनाले उसको विचार बदल्ने चुनौती लिने", next: "q3_challenge" },
+                { text: "🛑 'मलाई राम्रो मात्र चाहिन्छ' भन्दै घमण्ड सहने र अघि बढ्ने", next: "q3_ego_end" }
+            ]
+        },
+        q3_challenge: {
+            step: 30,
+            avatar: "🧠",
+            text: "प्रश्न ३ (IQ Twist): केटीले केटाको बौद्धिकता जाँच्न एउटा पज्जल सोध्छे: 'मलाई सुन मन पर्छ, तर म सुन खानीमा बस्दिनँ। म चम्किन्छु तर तारा होइन। म को हुँ?' केटाले के उत्तर देला?",
+            choices: [
+                { text: "🌟 हीरा (Diamond) - सही उत्तर", next: "q4_educated" },
+                { text: "🛑 सुनको औंठी (Gold Ring) - गलत उत्तर", next: "q4_wrong_iq" }
+            ]
+        },
+        q4_educated: {
+            step: 40,
+            avatar: "📚",
+            text: "प्रश्न ४: पज्जल मिलेपछि केटी प्रभावित भई। तर अब उसको परिवारले विवाहको सर्त राखे- 'हामीलाई सहरको मुख्य चोकमा १० करोडको बङ्गला चाहिन्छ।' केटाले अब कुन बाटो रोज्छ?",
+            choices: [
+                { text: "🌟 आफ्नै मिहिनेत र सेयर बजार/व्यापारबाट कमाएर देखाउने", next: "q5_business" },
+                { text: "🛑 आफ्नो पुर्ख्यौली सम्पत्ति सबै बेचेर सर्त पूरा गर्ने", next: "q5_poor_end" }
+            ]
+        },
+        q5_business: {
+            step: 50,
+            avatar: "📈",
+            text: "प्रश्न ५: केटा सेयर बजार (NEPSE) मा छिर्छ। बजार बुलिस छ, तर बजेट भाषणले कर बढाउँदा बजार क्र्यास हुन खोज्छ। अरू सबै रोइलो गर्दै बेच्दै छन्, केटाले के गर्छ?",
+            choices: [
+                { text: "🌟 'Buy the Dips' - मौकाको फाइदा उठाएर बलियो स्टक सस्तोमा किन्ने", next: "q6_success" },
+                { text: "🛑 डरले (FOMO/Panic) आफ्नो भएको घाटामा सबै बेचेर भाग्ने", next: "q6_fail" }
+            ]
+        },
+        q6_success: {
+            step: 60,
+            avatar: "💰",
+            text: "प्रश्न ६: वाओ! बजार बाउन्स ब्याक भयो र केटाले सोचेभन्दा बढी कमायो। उसले बङ्गला पनि किन्यो। अब केटीको साँचो परीक्षा सुरु भयो- उसले केटाको पैसा मात्र हेरेकी हो कि मन पनि? यसलाई जाँच्न केटाले के गर्छ?",
+            choices: [
+                { text: "🌟 'म डुबेँ' भनी झुटो नाटक गरेर उसको बफादारिता जाँच्ने", next: "q7_test_loyal" },
+                { text: "🛑 पैसाको धाक देखाएर तुरुन्तै विवाह गर्ने", next: "q7_blind_end" }
+            ]
+        },
+        q7_test_loyal: {
+            step: 70,
+            avatar: "🤝",
+            text: "प्रश्न ७: नाटक गर्दा केटीले भनी- 'पैसा ठूलो कुरा होइन, म तिम्रो मिहिनेतको साथ दिन्छु।' केटा दंग पर्‍यो। तर, विवाह अगाडि केटीको एउटा पुरानो खराब बानी (दुर्व्यसनी वा जुवा) को रहस्य खुल्यो। अब केटाको निर्णय के?",
+            choices: [
+                { text: "🌟 उसलाई सुध्रिने एक मौका दिने र पुनस्र्थापनामा सघाउने", next: "q8_rehab" },
+                { text: "🛑 'म नराम्रो कुरा सहन्न' भन्दै सम्बन्ध तुरुन्तै तोड्ने", next: "q8_breakup" }
+            ]
+        },
+        q8_rehab: {
+            step: 80,
+            avatar: "🏥",
+            text: "प्रश्न ८: केटी सुध्रिइन्। तर सामाजिक रूपमा केटाको परिवारले यसलाई स्वीकार गरेन। समाजले केटाको कुरा काट्न थाल्यो। केटा कसको कुरा सुन्छ?",
+            choices: [
+                { text: "🌟 समाजको डरलाई त्यागेर आफ्नो निर्णय र प्रेममा अडिग रहने", next: "q9_final_hurdle" },
+                { text: "🛑 समाज र इज्जतको डरले केटीलाई बीच बाटोमै छोडिदिने", next: "q9_society_win" }
+            ]
+        },
+        q9_final_hurdle: {
+            step: 90,
+            avatar: "⚖️",
+            text: "प्रश्न ९: अन्तिम परीक्षा! विवाहको दिन मण्डपमा एउटा ठूलो भुइँचालो वा दुर्घटना हुन्छ, जसले गर्दा केटीको रूप (अनुहार) कुरुप हुन पुग्छ। केटाले अब के गर्छ?",
+            choices: [
+                { text: "👑 रूप क्षणभंगुर हो भन्दै त्यही अवस्थामा सिन्दुर हालेर भित्र्याउँछ", next: "ultimate_grand_ending" },
+                { text: "💔 आफ्नो 'राम्रो मात्र रोज्ने' कसम सम्झेर विवाह रद्द गर्छ", next: "tragedy_end" }
+            ]
+        },
+
+        // बीचका अन्य हाँगा र अन्त्यहरू (Alternative Paths & Endings)
+        q2_sadagi: {
+            step: 30,
+            avatar: "🧠🕯️",
+            text: "प्रश्न २ (सादगी मार्ग): उसले बुद्धिमानी केटी रोज्यो। केटीले भनी- 'म धन चाहन्नँ, तर मलाई तिम्रो उच्च सम्मान चाहिन्छ।' तर केटाको स्वभावमा अलि घमण्ड छ। के उसले आफ्नो घमण्ड त्याग्न सक्छ?",
+            choices: [
+                { text: "🌟 आफ्नो गल्ती महसुस गरेर झुक्न सिक्ने", next: "q4_educated" },
+                { text: "🛑 'म किन झुक्ने?' भन्दै अहंकार देखाउने", next: "q3_ego_end" }
+            ]
+        },
+        q4_wrong_iq: {
+            step: 50,
+            avatar: "❌",
+            text: "केटाको आईक्यू (IQ) कमजोर देखियो। केटीले भनी- 'जसको सोच्ने क्षमता राम्रो छैन, उसले जीवन कसरी चलाउँछ?' केटा अपमानित भयो। अब केटाले के गर्छ?",
+            choices: [
+                { text: "🌟 आफ्नो गल्ती स्विकार्दै ज्ञान बढाउन मिहिनेत गर्छ", next: "q5_business" },
+                { text: "🛑 रिसको झोंकमा केटीलाई गाली गरेर हिँड्छ", next: "shant_end" }
+            ]
+        },
+        q6_fail: {
+            step: 70,
+            avatar: "📉😭",
+            text: "प्यानिक भएर सेयर बेच्दा केटा टाट पल्टियो। केटी र उसको परिवारले उसलाई त्यागेर हिँडे। केटा सडकमा आयो। 'राम्रो' को गलत परिभाषाले उसलाई डुबायो।",
+            choices: [{ text: "🔄 खेल फेरि सुरु गर्नुहोस्", next: "start" }]
+        },
+
+        // Ultimate Endings
+        ultimate_grand_ending: {
+            step: 100,
+            avatar: "👑🏆💎",
+            text: "🌟 परिणाम: सर्वोच्च बुद्धिमत्ता (The Ultimate Emperor) 🌟\n\nबधाई छ सर! तपाईंले १० वटा कठिन भन्दा कठिन परिस्थिति पार गर्नुभयो। तपाईंको केटाले 'राम्रो' को वास्तविक अर्थ (बाहिरी रूप होइन, आन्तरिक चरित्र र दृढता) बुझ्यो। ऊ व्यावसायिक रूपमा अरबपति बन्यो र जीवनमा एउटा महान् साम्राज्य खडा गर्यो। तपाईंको IQ र निर्णय क्षमता शतप्रतिशत सही छ!",
+            choices: [{ text: "🔄 खेल फेरि सुरु गर्नुहोस्", next: "start" }]
+        },
+        tragedy_end: {
+            step: 100,
+            avatar: "🏚️👁️",
+            text: "🛑 परिणाम: भ्रामक चाहना (The Hollow Winner) 🛑\n\nउसले रूप कुरुप भएपछि विवाह त रद्द गर्यो, तर जीवनभर उसले साँचो माया र विश्वास पाउन सकेन। ऊ वृद्ध हुँदा एक्लो भयो। बाहिरी 'राम्रो' मात्र खोज्दा आन्तरिक शान्ति सधैंका लागि गुमायो।",
+            choices: [{ text: "🔄 फेरि प्रयास गर्नुहोस्", next: "start" }]
+        },
+        q3_ego_end: {
+            step: 100,
+            avatar: "🚷",
+            text: "परिणाम: अहंकारको पराजय। अहंकारका कारण उसले सुरुमै राम्रा अवसरहरू गुमायो र जीवनभर पछुतोमा बिताउनु पर्यो।",
+            choices: [{ text: "🔄 फेरि प्रयास गर्नुहोस्", next: "start" }]
+        },
+        q5_poor_end: {
+            step: 100,
+            avatar: "📉",
+            text: "परिणाम: परावलम्बी जीवन। पुर्ख्यौली सम्पत्ति बेचेर क्षणिक सुख त पायो, तर पछि कमाउन नसक्दा कंगाल बन्यो।",
+            choices: [{ text: "🔄 फेरि प्रयास गर्नुहोस्", next: "start" }]
+        },
+        q7_blind_end: {
+            step: 100,
+            avatar: "🎭🛍️",
+            text: "परिणाम: सुनको पिँजडा। विवाह त भयो तर केटीले केटाको पैसा मात्र सिध्याउने काम गरी। माया र आदर नभएको घर नरक जस्तै बन्यो।",
+            choices: [{ text: "🔄 फेरि प्रयास गर्नुहोस्", next: "start" }]
+        },
+        q8_breakup: {
+            step: 100,
+            avatar: "🚶‍♂️💔",
+            text: "परिणाम: अधुरो यात्रा। गल्ती सुध्रिन खोज्दा पनि मौका नदिँदा केटाले एउटा असल बन्न सक्ने साथी गुमायो र आफैं पनि एक्लो भयो।",
+            choices: [{ text: "🔄 फेरि प्रयास गर्नुहोस्", next: "start" }]
+        },
+        q9_society_win: {
+            step: 100,
+            avatar: "👥⛓️",
+            text: "परिणाम: समाजको दास। समाजको डरले आफ्नो खुसीको बलि दियो। ऊ अरूका नजरमा राम्रो भयो, तर आफ्नै नजरमा दोषी बन्यो।",
+            choices: [{ text: "🔄 फेरि प्रयास गर्नुहोस्", next: "start" }]
+        },
+        shant_end: {
+            step: 100,
+            avatar: "🍂",
+            text: "परिणाम: क्रोध र असफलता। रिसलाई नियन्त्रण गर्न नसक्दा हात परेको सफलता पनि गुम्न पुग्यो।",
+            choices: [{ text: "🔄 फेरि प्रयास गर्नुहोस्", next: "start" }]
+        }
+    };
+
+    // फंक्शन: स्क्रिनमा नयाँ कथा र प्रोग्रेस बार अपडेट गर्न
+    function renderNode(nodeId) {
+        const node = storyTree[nodeId];
+        const container = document.getElementById('story-content');
+        
+        // प्रोग्रेस बार अपडेट
+        document.getElementById("myBar").style.width = node.step + "%";
+        
+        // पुरानो कन्टेन्ट सफा गरेर नयाँ एनिमेसन दिने
+        container.innerHTML = "";
+        
+        const wrapper = document.createElement('div');
+        wrapper.className = "fade-in";
+
+        // अवतार
+        const avatarDiv = document.createElement('div');
+        avatarDiv.className = "avatar-box w3-margin-bottom";
+        avatarDiv.innerText = node.avatar;
+        wrapper.appendChild(avatarDiv);
+
+        // प्रश्न वा नतिजाको टेक्स्ट
+        const textP = document.createElement('p');
+        textP.className = "w3-large w3-text-dark-grey w3-padding";
+        textP.style.lineHeight = "1.6";
+        textP.style.whiteSpace = "pre-line"; // For line breaks in results
+        textP.innerText = node.text;
+        wrapper.appendChild(textP);
+
+        // बटन एरिया
+        const choicesDiv = document.createElement('div');
+        choicesDiv.className = "w3-margin-top w3-padding";
+        
+        node.choices.forEach(choice => {
+            const btn = document.createElement('button');
+            
+            // W3Schools Styles र रङ्गहरूको वर्गीकरण
+            if(choice.text.includes("🌟") || choice.text.includes("👑")) {
+                btn.className = "w3-button w3-block w3-flat-peter-river w3-hover-blue choice-btn w3-card-2";
+            } else if(choice.text.includes("🔄")) {
+                btn.className = "w3-button w3-block w3-flat-alizarin w3-hover-red choice-btn w3-card-2 w3-center";
+                btn.style.textAlign = "center";
+            } else {
+                btn.className = "w3-button w3-block w3-light-grey w3-hover-grey choice-btn w3-card-2";
+            }
+            
+            btn.innerText = choice.text;
+            btn.onclick = () => renderNode(choice.next);
+            choicesDiv.appendChild(btn);
+        });
+
+        wrapper.appendChild(choicesDiv);
+        container.appendChild(wrapper);
+    }
+
+    // विन्डो लोड हुँदा खेल सुरु गर्ने
+    window.onload = function() {
+        renderNode('start');
+    };
+</script>
+
+</body>
+</html>
